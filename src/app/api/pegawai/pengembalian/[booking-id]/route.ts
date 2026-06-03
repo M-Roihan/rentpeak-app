@@ -37,12 +37,35 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ "booki
         data: { status: "SELESAI" }
       });
 
-      // 2. Kembalikan stok untuk setiap barang yang disewa
+      // 2 & 4. Kembalikan stok dan proses laporan barang rusak
       for (const detail of booking.details) {
-        await tx.barang.update({
-          where: { id: detail.barang_id },
-          data: { stok_tersedia: { increment: detail.jumlah } }
-        });
+        const kondisiItem = kondisi_barang?.find((k: any) => k.barang_id === detail.barang_id);
+
+        if (kondisiItem && kondisiItem.kondisi === "RUSAK") {
+          // Jika barang rusak: 
+          // - Jangan tambah stok_tersedia karena barang rusak
+          // - Kurangi stok_total karena barang tidak bisa disewakan lagi
+          await tx.barang.update({
+            where: { id: detail.barang_id },
+            data: { stok_total: { decrement: detail.jumlah } }
+          });
+
+          // Buat laporan barang rusak
+          await tx.laporanBarangRusak.create({
+            data: {
+              barang_id: detail.barang_id,
+              pegawai_id: decoded.id,
+              deskripsi_rusak: kondisiItem.deskripsi_rusak || "Dilaporkan rusak saat pengembalian",
+              status_perbaikan: "DILAPORKAN"
+            }
+          });
+        } else {
+          // Jika barang BAIK: kembalikan ke stok tersedia
+          await tx.barang.update({
+            where: { id: detail.barang_id },
+            data: { stok_tersedia: { increment: detail.jumlah } }
+          });
+        }
       }
 
       // 3. Update status jaminan (jika ada) menjadi DIKEMBALIKAN
@@ -51,29 +74,6 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ "booki
           where: { id: booking.jaminan.id },
           data: { status: "DIKEMBALIKAN" }
         });
-      }
-
-      // 4. Proses laporan barang rusak jika ada
-      if (kondisi_barang && Array.isArray(kondisi_barang)) {
-        for (const item of kondisi_barang) {
-          if (item.kondisi === "RUSAK") {
-            // Buat laporan barang rusak
-            await tx.laporanBarangRusak.create({
-              data: {
-                barang_id: item.barang_id,
-                pegawai_id: decoded.id,
-                deskripsi_rusak: item.deskripsi_rusak || "Dilaporkan rusak saat pengembalian (tidak ada deskripsi)",
-                status_perbaikan: "DILAPORKAN"
-              }
-            });
-
-            // Ubah kondisi barang master menjadi RUSAK agar staf bisa menindaklanjuti
-            await tx.barang.update({
-              where: { id: item.barang_id },
-              data: { kondisi: "RUSAK" }
-            });
-          }
-        }
       }
     });
 
