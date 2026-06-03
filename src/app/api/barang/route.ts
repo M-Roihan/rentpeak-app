@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import jwt from 'jsonwebtoken'; // Tambahkan ini di paling atas!
+import jwt from 'jsonwebtoken'; 
+import { writeFile, mkdir } from 'fs/promises';
+import path from 'path';
 
 export async function POST(req: Request) {
   try {
@@ -30,11 +32,33 @@ export async function POST(req: Request) {
     // KALAU LOLOS 4 CEGATAN DI ATAS, BARU BOLEH NAMBAH BARANG
     // ==============================================================
 
-    const body = await req.json();
-    const { nama, kategori, harga_per_hari, stok_total, deskripsi, kondisi } = body;
+    const formData = await req.formData();
+    const nama = formData.get("nama") as string;
+    const kategori = formData.get("kategori") as string;
+    const harga_per_hari = formData.get("harga_per_hari") as string;
+    const stok_total = formData.get("stok_total") as string;
+    const deskripsi = formData.get("deskripsi") as string;
+    const kondisi = formData.get("kondisi") as string;
+    const foto = formData.get("foto") as File | null;
 
     if (!nama || !kategori || !harga_per_hari || !stok_total || !kondisi) {
       return NextResponse.json({ pesan: "Data barang belum lengkap!" }, { status: 400 });
+    }
+
+    let foto_url = null;
+    if (foto && foto.size > 0) {
+      const bytes = await foto.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const fileName = Date.now() + "-" + foto.name.replace(/[^a-zA-Z0-9.\-_]/g, "");
+      const uploadDir = path.join(process.cwd(), "public", "uploads");
+      
+      try {
+        await mkdir(uploadDir, { recursive: true });
+      } catch (e) {}
+
+      const filePath = path.join(uploadDir, fileName);
+      await writeFile(filePath, buffer);
+      foto_url = `/uploads/${fileName}`;
     }
 
     const barangBaru = await prisma.barang.create({
@@ -45,7 +69,8 @@ export async function POST(req: Request) {
         stok_total: Number(stok_total),
         stok_tersedia: Number(stok_total),
         deskripsi: deskripsi || "",
-        kondisi
+        kondisi,
+        foto_url: foto_url
       }
     });
 

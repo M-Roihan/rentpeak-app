@@ -63,10 +63,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-900 px-4">
-      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-2xl">
-        <h2 className="text-3xl font-bold text-center text-blue-600 mb-2" style={{ fontFamily: '"Sora", sans-serif' }}>RENTPEAK</h2>
-        <p className="text-center text-gray-500 mb-8 font-light">Portal Masuk</p>
+    <div className="flex min-h-screen items-center justify-center bg-[#F9F8F6] px-4">
+      <div className="w-full max-w-md bg-white p-8 rounded-3xl shadow-xl border border-stone-200">
+        <h2 className="text-3xl font-black text-center text-stone-900 tracking-tighter mb-2" style={{ fontFamily: '"Sora", sans-serif' }}>RENT<span className="text-emerald-600">PEAK.</span></h2>
+        <p className="text-center text-stone-500 mb-8 font-light">Portal Masuk</p>
         
         {successMsg && (
           <div className="mb-6 p-4 rounded-lg bg-green-100 text-green-700 border border-green-200 text-sm font-medium text-center">
@@ -82,22 +82,22 @@ export default function LoginPage() {
         
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Email</label>
+            <label className="block text-sm font-semibold text-stone-700">Email</label>
             <input 
               type="email" 
               required
-              className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+              className="mt-1 w-full p-3 border border-stone-300 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
               placeholder="admin@rentpeak.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Password</label>
+            <label className="block text-sm font-semibold text-stone-700">Password</label>
             <input 
               type="password" 
               required
-              className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+              className="mt-1 w-full p-3 border border-stone-300 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -106,22 +106,22 @@ export default function LoginPage() {
           <button 
             type="submit"
             disabled={loading}
-            className={`w-full p-3 rounded-lg font-bold text-white transition-all ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200'}`}
+            className={`w-full p-3.5 rounded-xl font-bold text-white transition-all ${loading ? 'bg-stone-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700 shadow-md shadow-emerald-200'}`}
           >
             {loading ? "Logging in..." : "MASUK"}
           </button>
         </form>
 
-        <p className="mt-8 text-center text-sm text-gray-600">
+        <p className="mt-8 text-center text-sm text-stone-600">
           Belum punya akun?{" "}
-          <Link href="/register" className="text-blue-600 font-semibold hover:underline">
+          <Link href="/register" className="text-emerald-600 font-bold hover:underline">
             Daftar
           </Link>
         </p>
 
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-stone-600">
           Login sebagai staff?{" "}
-          <Link href="/admin/login" className="text-blue-600 font-semibold hover:underline">
+          <Link href="/admin/login" className="text-emerald-600 font-bold hover:underline">
             Klik di sini &rarr;
           </Link>
         </p>

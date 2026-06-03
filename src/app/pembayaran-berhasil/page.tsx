@@ -62,24 +62,24 @@ function PembayaranBerhasilContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-[#F9F8F6] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
       </div>
     );
   }
 
   if (errorMsg || !booking) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 text-center">
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-red-100 max-w-md w-full">
+      <div className="min-h-screen bg-[#F9F8F6] flex items-center justify-center p-4 text-center">
+        <div className="bg-white p-8 rounded-3xl shadow-sm border border-red-100 max-w-md w-full">
           <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-slate-800 mb-2">Oops! Ada Masalah</h2>
-          <p className="text-slate-500 mb-6">{errorMsg || "Booking tidak ditemukan"}</p>
-          <Link href="/" className="block w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors">
+          <h2 className="text-xl font-bold text-stone-800 mb-2">Oops! Ada Masalah</h2>
+          <p className="text-stone-500 mb-6">{errorMsg || "Booking tidak ditemukan"}</p>
+          <Link href="/" className="block w-full py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-colors">
             Kembali ke Beranda
           </Link>
         </div>
@@ -88,26 +88,26 @@ function PembayaranBerhasilContent() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-16 px-4 font-sans text-slate-800">
+    <div className="min-h-screen bg-[#F9F8F6] py-16 px-4 font-sans text-stone-800">
       <div className="max-w-lg mx-auto">
         {/* Header Icon & Title */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+          <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-2" style={{ fontFamily: '"Sora", sans-serif' }}>Pembayaran Berhasil! 🎉</h1>
-          <p className="text-slate-500 text-lg">Pesananmu sudah kami terima.</p>
+          <h1 className="text-3xl font-bold text-stone-900 mb-2" style={{ fontFamily: '"Sora", sans-serif' }}>Pembayaran Berhasil! 🎉</h1>
+          <p className="text-stone-500 text-lg">Pesananmu sudah kami terima.</p>
         </div>
 
         {/* Card Detail */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden mb-6">
-          <div className="p-6 sm:p-8 bg-blue-600 text-center relative overflow-hidden">
+        <div className="bg-white rounded-3xl border border-stone-200 shadow-xl shadow-stone-200/50 overflow-hidden mb-6">
+          <div className="p-6 sm:p-8 bg-emerald-600 text-center relative overflow-hidden">
             <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white opacity-10 rounded-full"></div>
             <div className="absolute bottom-0 left-0 -mb-6 -ml-6 w-32 h-32 bg-white opacity-10 rounded-full"></div>
             
-            <p className="text-blue-100 text-sm font-medium mb-1 relative z-10 uppercase tracking-wider">Kode Booking</p>
+            <p className="text-emerald-100 text-sm font-medium mb-1 relative z-10 uppercase tracking-wider">Kode Booking</p>
             <div 
               onClick={handleCopy}
               className="inline-flex flex-col items-center cursor-pointer group relative z-10"
@@ -122,46 +122,46 @@ function PembayaranBerhasilContent() {
           
           <div className="p-6 sm:p-8 space-y-6">
             <div>
-              <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Barang yang Disewa</p>
+              <p className="text-xs text-stone-400 font-bold uppercase tracking-wider mb-2">Barang yang Disewa</p>
               <ul className="space-y-2">
                 {booking.details.map((detail: any, idx: number) => (
                   <li key={idx} className="flex justify-between items-start">
-                    <span className="font-medium text-slate-800">{detail.barang?.nama || 'Barang'}</span>
-                    <span className="text-slate-500 font-medium text-sm whitespace-nowrap ml-4">x{detail.jumlah}</span>
+                    <span className="font-medium text-stone-800">{detail.barang?.nama || 'Barang'}</span>
+                    <span className="text-stone-500 font-medium text-sm whitespace-nowrap ml-4">x{detail.jumlah}</span>
                   </li>
                 ))}
               </ul>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-stone-100">
               <div>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Tanggal Pinjam</p>
-                <p className="font-medium text-slate-800">{formatTanggal(booking.tanggal_pinjam)}</p>
+                <p className="text-xs text-stone-400 font-bold uppercase tracking-wider mb-1">Tanggal Pinjam</p>
+                <p className="font-medium text-stone-800">{formatTanggal(booking.tanggal_pinjam)}</p>
               </div>
               <div>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Tanggal Kembali</p>
-                <p className="font-medium text-slate-800">{formatTanggal(booking.tanggal_kembali)}</p>
+                <p className="text-xs text-stone-400 font-bold uppercase tracking-wider mb-1">Tanggal Kembali</p>
+                <p className="font-medium text-stone-800">{formatTanggal(booking.tanggal_kembali)}</p>
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-stone-100">
               <div>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Metode Bayar</p>
-                <p className="font-medium text-slate-800 uppercase">
+                <p className="text-xs text-stone-400 font-bold uppercase tracking-wider mb-1">Metode Bayar</p>
+                <p className="font-medium text-stone-800 uppercase">
                   {booking.pembayaran?.metode_pembayaran || '-'}
                 </p>
               </div>
               <div>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Status</p>
-                <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
+                <p className="text-xs text-stone-400 font-bold uppercase tracking-wider mb-1">Status</p>
+                <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full">
                   {booking.pembayaran?.status || 'BERHASIL'}
                 </span>
               </div>
             </div>
             
-            <div className="pt-4 border-t-2 border-slate-100 flex justify-between items-center">
-              <span className="font-bold text-slate-600">Total Biaya</span>
-              <span className="font-bold text-2xl text-blue-600" style={{ fontFamily: '"Sora", sans-serif' }}>
+            <div className="pt-4 border-t-2 border-stone-100 flex justify-between items-center">
+              <span className="font-bold text-stone-600">Total Biaya</span>
+              <span className="font-bold text-2xl text-emerald-600" style={{ fontFamily: '"Sora", sans-serif' }}>
                 {formatRupiah(booking.total_biaya)}
               </span>
             </div>
@@ -169,11 +169,11 @@ function PembayaranBerhasilContent() {
         </div>
 
         {/* Info Box */}
-        <div className="bg-blue-50 border border-blue-100 rounded-xl p-5 mb-8 flex items-start">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-5 mb-8 flex items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-emerald-500 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p className="text-sm text-blue-800 leading-relaxed font-medium">
+          <p className="text-sm text-emerald-800 leading-relaxed font-medium">
             Tunjukkan kode booking ini kepada pegawai saat mengambil barang. <br className="hidden sm:block" />
             <span className="font-bold">Bawa identitas asli (KTP/SIM)</span> sebagai jaminan selama masa penyewaan.
           </p>
@@ -181,10 +181,10 @@ function PembayaranBerhasilContent() {
 
         {/* Actions */}
         <div className="space-y-3">
-          <Link href="/riwayat-peminjaman" className="block w-full py-4 bg-blue-600 text-white text-center font-bold text-lg rounded-xl hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/30 transition-all">
+          <Link href="/riwayat-peminjaman" className="block w-full py-4 bg-emerald-600 text-white text-center font-bold text-lg rounded-xl hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-600/30 transition-all">
             Lihat Riwayat Peminjaman
           </Link>
-          <Link href="/" className="block w-full py-4 bg-white border-2 border-slate-200 text-slate-600 text-center font-bold text-lg rounded-xl hover:border-slate-300 hover:bg-slate-50 transition-all">
+          <Link href="/" className="block w-full py-4 bg-white border-2 border-stone-200 text-stone-600 text-center font-bold text-lg rounded-xl hover:border-stone-300 hover:bg-[#F9F8F6] transition-all">
             Kembali ke Katalog
           </Link>
         </div>
@@ -197,8 +197,8 @@ export default function PembayaranBerhasilPage() {
   // Gunakan Suspense boundary karena useSearchParams membutuhkan environment client-side
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-[#F9F8F6] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
       </div>
     }>
       <PembayaranBerhasilContent />

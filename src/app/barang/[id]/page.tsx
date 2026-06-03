@@ -106,19 +106,19 @@ export default function BarangDetail() {
   // Helper ilustrasi SVG per kategori
   const getSvgIcon = (kategori: string) => {
     const k = kategori?.toLowerCase();
-    if (k?.includes("tenda")) return <svg className="w-24 h-24 text-blue-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 21h18M5 21l7-14 7 14M12 7v14M8 15h8" /></svg>;
-    if (k?.includes("carrier") || k?.includes("tas")) return <svg className="w-24 h-24 text-blue-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>;
-    if (k?.includes("masak")) return <svg className="w-24 h-24 text-blue-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20.5 3l-.5 4h-16l-.5-4h17zM3 7v11a2 2 0 002 2h14a2 2 0 002-2V7H3z" /></svg>;
-    if (k?.includes("pakaian")) return <svg className="w-24 h-24 text-blue-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>;
-    if (k?.includes("senter")) return <svg className="w-24 h-24 text-blue-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>;
+    if (k?.includes("tenda")) return <svg className="w-24 h-24 text-emerald-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 21h18M5 21l7-14 7 14M12 7v14M8 15h8" /></svg>;
+    if (k?.includes("carrier") || k?.includes("tas")) return <svg className="w-24 h-24 text-emerald-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>;
+    if (k?.includes("masak")) return <svg className="w-24 h-24 text-emerald-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20.5 3l-.5 4h-16l-.5-4h17zM3 7v11a2 2 0 002 2h14a2 2 0 002-2V7H3z" /></svg>;
+    if (k?.includes("pakaian")) return <svg className="w-24 h-24 text-emerald-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>;
+    if (k?.includes("senter")) return <svg className="w-24 h-24 text-emerald-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>;
     // Icon Default
-    return <svg className="w-24 h-24 text-blue-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>;
+    return <svg className="w-24 h-24 text-emerald-500 opacity-50 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>;
   };
 
   // --- RENDERING SKELETON LOADING ---
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 p-6 md:p-12 font-sans">
+      <div className="min-h-screen bg-[#F9F8F6] p-6 md:p-12 font-sans">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
            <Skeleton className="w-full md:w-1/2 h-[450px] rounded-3xl" />
            <div className="w-full md:w-1/2 space-y-6">
@@ -140,10 +140,10 @@ export default function BarangDetail() {
   // --- RENDERING EMPTY STATE / NOT FOUND ---
   if (!barang) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 font-sans">
-        <div className="text-center p-8 bg-white rounded-2xl shadow-sm border border-slate-100 max-w-sm">
-          <svg className="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-          <h2 className="text-2xl font-bold text-slate-800 font-sora" style={{ fontFamily: '"Sora", sans-serif' }}>Barang Tidak Ditemukan</h2>
+      <div className="min-h-screen flex items-center justify-center bg-[#F9F8F6] font-sans">
+        <div className="text-center p-8 bg-white rounded-3xl shadow-sm border border-stone-200 max-w-sm">
+          <svg className="w-16 h-16 text-stone-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          <h2 className="text-2xl font-bold text-stone-800 font-sora" style={{ fontFamily: '"Sora", sans-serif' }}>Barang Tidak Ditemukan</h2>
           <Button variant="secondary" className="mt-6 w-full" onClick={() => router.push("/")}>Kembali ke Katalog</Button>
         </div>
       </div>
@@ -156,7 +156,7 @@ export default function BarangDetail() {
 
   // --- RENDERING MAIN COMPONENT ---
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
+    <div className="min-h-screen bg-[#F9F8F6] font-sans text-stone-800 pb-20">
       
       {/* Komponen Toast Notifikasi */}
       {toastMsg && (
@@ -168,9 +168,9 @@ export default function BarangDetail() {
       )}
       
       {/* Navbar Minimalis */}
-      <nav className="bg-white shadow-sm sticky top-0 z-50">
+      <nav className="bg-[#F9F8F6]/90 backdrop-blur-xl border-b border-stone-200/60 shadow-sm sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-           <button onClick={() => router.push("/")} className="text-slate-500 hover:text-blue-600 font-semibold flex items-center transition-colors">
+           <button onClick={() => router.push("/")} className="text-stone-500 hover:text-emerald-600 font-semibold flex items-center transition-colors">
              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
              Kembali ke Katalog
            </button>
@@ -182,9 +182,13 @@ export default function BarangDetail() {
         
         {/* Kolom Kiri: Gambar Ilustrasi */}
         <div className="w-full md:w-1/2">
-          <div className="bg-gradient-to-br from-blue-50 to-slate-100 aspect-square rounded-3xl flex items-center justify-center border border-blue-100 shadow-sm relative overflow-hidden">
-             {getSvgIcon(barang.kategori)}
-             <div className="absolute inset-0 bg-gradient-to-t from-blue-200/20 to-transparent"></div>
+          <div className="bg-gradient-to-br from-[#F9F8F6] to-stone-100 group-hover:from-emerald-50/50 group-hover:to-teal-50/30 aspect-square rounded-3xl flex items-center justify-center border border-stone-200 shadow-sm relative overflow-hidden transition-colors duration-500">
+             {barang.foto_url ? (
+               <img src={barang.foto_url} alt={barang.nama} className="w-full h-full object-cover" />
+             ) : (
+               getSvgIcon(barang.kategori)
+             )}
+             <div className="absolute inset-0 bg-gradient-to-t from-emerald-100/20 to-transparent"></div>
           </div>
         </div>
 
@@ -193,7 +197,7 @@ export default function BarangDetail() {
           
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-xs font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-full uppercase tracking-wider">
+              <span className="text-xs font-bold bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-100/50">
                 {barang.kategori}
               </span>
               <Badge variant={barang.kondisi?.toUpperCase() === "RUSAK" ? "danger" : "success"}>
@@ -201,24 +205,24 @@ export default function BarangDetail() {
               </Badge>
             </div>
             
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-2" style={{ fontFamily: '"Sora", sans-serif' }}>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-stone-900 mb-2" style={{ fontFamily: '"Sora", sans-serif' }}>
               {barang.nama}
             </h1>
             
-            <div className="text-2xl font-black text-blue-600 mt-4">
-              Rp {Number(barang.harga_per_hari).toLocaleString("id-ID")} <span className="text-lg text-slate-500 font-medium">/ hari</span>
+            <div className="text-2xl font-black text-emerald-900 mt-4 tracking-tight">
+              Rp {Number(barang.harga_per_hari).toLocaleString("id-ID")} <span className="text-lg text-stone-400 font-normal">/ hari</span>
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm mb-6">
-            <h3 className="font-bold text-slate-800 mb-2">Deskripsi Produk</h3>
-            <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-line">
+          <div className="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm mb-6">
+            <h3 className="font-bold text-stone-800 mb-2">Deskripsi Produk</h3>
+            <p className="text-stone-600 text-sm leading-relaxed whitespace-pre-line">
               {barang.deskripsi || "Belum ada deskripsi untuk produk ini."}
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-md flex-1">
-            <h3 className="font-bold text-slate-800 mb-4 text-lg border-b border-slate-100 pb-3">Pesan Sekarang</h3>
+          <div className="bg-white p-6 rounded-3xl border border-stone-200 shadow-sm flex-1">
+            <h3 className="font-bold text-stone-800 mb-4 text-lg border-b border-stone-100 pb-3">Pesan Sekarang</h3>
             
             <div className="mb-5">
                {isTersedia ? (
@@ -267,21 +271,24 @@ export default function BarangDetail() {
 
             {/* Kotak Estimasi Harga Muncul Otomatis */}
             {tglPinjam && tglKembali && totalBiaya > 0 && (
-              <div className="mb-6 p-4 bg-blue-50/50 rounded-xl border border-blue-100 flex justify-between items-center transition-all">
-                 <span className="text-slate-600 font-medium text-sm">Estimasi Biaya:</span>
-                 <span className="text-xl font-black text-blue-700">Rp {totalBiaya.toLocaleString("id-ID")}</span>
+              <div className="mb-6 p-4 bg-emerald-50/50 rounded-xl border border-emerald-100 flex justify-between items-center transition-all">
+                 <span className="text-stone-600 font-medium text-sm">Estimasi Biaya:</span>
+                 <span className="text-xl font-black text-emerald-700">Rp {totalBiaya.toLocaleString("id-ID")}</span>
               </div>
             )}
 
-            <Button 
-              size="lg" 
-              className={`w-full text-lg shadow-xl ${isTersedia && !isStaff ? "shadow-blue-200" : ""}`}
+            <button 
+              className={`w-full py-4 rounded-xl font-bold text-lg text-white transition-all flex items-center justify-center gap-3 ${
+                !isTersedia || isStaff
+                  ? 'bg-stone-300 cursor-not-allowed'
+                  : 'bg-stone-900 hover:bg-emerald-700 shadow-md shadow-stone-900/10 hover:shadow-emerald-700/20 active:scale-95'
+              }`}
               disabled={!isTersedia || isStaff}
               onClick={handleAddToCart}
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
               {isStaff ? "Hanya Untuk Customer" : (isTersedia ? "Tambah ke Keranjang" : "Stok Habis")}
-            </Button>
+            </button>
           </div>
         </div>
       </div>

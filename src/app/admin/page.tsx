@@ -9,6 +9,7 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState({ totalBookingAktif: 0, pendapatanBulanIni: 0, barangTersedia: 0, laporanRusakPending: 0 });
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<{msg: string, type: "success"|"error"} | null>(null);
+  const [fotoFile, setFotoFile] = useState<File | null>(null);
   
   // Modals state
   const [showAddModal, setShowAddModal] = useState(false);
@@ -18,7 +19,7 @@ export default function AdminDashboard() {
   const [selectedBarang, setSelectedBarang] = useState<any>(null);
   
   const [formData, setFormData] = useState({
-    nama: "", kategori: "Tenda", harga_per_hari: "", stok_total: "", stok_tersedia: "", kondisi: "BAIK", deskripsi: ""
+    nama: "", kategori: "Tenda", harga_per_hari: "", stok_total: "", stok_tersedia: "", kondisi: "BAIK", deskripsi: "", foto_url: ""
   });
 
   const fetchData = async () => {
@@ -59,13 +60,24 @@ export default function AdminDashboard() {
       const url = isEdit ? `/api/barang/${selectedBarang.id}` : "/api/barang";
       const method = isEdit ? "PUT" : "POST";
 
+      const submitData = new FormData();
+      submitData.append("nama", formData.nama);
+      submitData.append("kategori", formData.kategori);
+      submitData.append("harga_per_hari", String(formData.harga_per_hari));
+      submitData.append("stok_total", String(formData.stok_total));
+      if (isEdit) submitData.append("stok_tersedia", String(formData.stok_tersedia));
+      submitData.append("kondisi", formData.kondisi);
+      submitData.append("deskripsi", formData.deskripsi);
+      if (fotoFile) {
+        submitData.append("foto", fotoFile);
+      }
+
       const res = await fetch(url, {
         method: method,
         headers: { 
-          "Content-Type": "application/json",
           "Authorization": `Bearer ${token}` 
         },
-        body: JSON.stringify(formData),
+        body: submitData,
       });
 
       if (res.ok) {
@@ -113,14 +125,17 @@ export default function AdminDashboard() {
       stok_total: item.stok_total,
       stok_tersedia: item.stok_tersedia,
       kondisi: item.kondisi,
-      deskripsi: item.deskripsi || ""
+      deskripsi: item.deskripsi || "",
+      foto_url: item.foto_url || ""
     });
+    setFotoFile(null);
     setShowEditModal(true);
   };
 
   const openAddModal = () => {
     setSelectedBarang(null);
-    setFormData({ nama: "", kategori: "Tenda", harga_per_hari: "", stok_total: "", stok_tersedia: "", kondisi: "BAIK", deskripsi: "" });
+    setFormData({ nama: "", kategori: "Tenda", harga_per_hari: "", stok_total: "", stok_tersedia: "", kondisi: "BAIK", deskripsi: "", foto_url: "" });
+    setFotoFile(null);
     setShowAddModal(true);
   };
 
@@ -267,14 +282,23 @@ export default function AdminDashboard() {
             <div className="flex gap-4">
               <div className="flex-1">
                 <label className="block text-sm font-semibold text-slate-700 mb-1">Kategori <span className="text-red-500">*</span></label>
-                <select className="w-full p-3 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium text-slate-900" 
-                  value={formData.kategori} onChange={(e) => setFormData({...formData, kategori: e.target.value})}>
-                  <option value="Tenda">Tenda</option>
-                  <option value="Carrier">Carrier</option>
-                  <option value="Alat Masak">Alat Masak</option>
-                  <option value="Pakaian">Pakaian</option>
-                  <option value="Senter">Senter</option>
-                </select>
+                <input 
+                  type="text"
+                  list="kategori-list"
+                  className="w-full p-3 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium text-slate-900" 
+                  value={formData.kategori} 
+                  onChange={(e) => setFormData({...formData, kategori: e.target.value})}
+                  placeholder="Pilih atau ketik kategori baru"
+                  required
+                />
+                <datalist id="kategori-list">
+                  {Array.from(new Set([
+                    "Tenda", "Carrier", "Alat Masak", "Pakaian", "Senter", 
+                    ...barang.map((item: any) => item.kategori)
+                  ])).filter(Boolean).map((cat: any) => (
+                    <option key={cat} value={cat} />
+                  ))}
+                </datalist>
               </div>
               <div className="flex-1">
                 <label className="block text-sm font-semibold text-slate-700 mb-1">Kondisi <span className="text-red-500">*</span></label>
@@ -310,6 +334,21 @@ export default function AdminDashboard() {
               <label className="block text-sm font-semibold text-slate-700 mb-1">Deskripsi Singkat</label>
               <textarea placeholder="Tulis spesifikasi lengkap, kapasitas, ukuran, dll..." className="w-full p-3 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm text-slate-900 placeholder:text-slate-400" rows={3}
                 value={formData.deskripsi} onChange={(e) => setFormData({...formData, deskripsi: e.target.value})} />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">Pilih Foto Barang (Opsional)</label>
+              <input type="file" accept="image/*" 
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setFotoFile(e.target.files[0]);
+                  }
+                }}
+                className="w-full p-2 border border-slate-300 rounded-lg text-sm bg-white" 
+              />
+              {showEditModal && selectedBarang?.foto_url && (
+                <p className="text-xs text-blue-500 mt-1">✓ Barang ini sudah memiliki foto. Biarkan kosong jika tidak ingin diubah.</p>
+              )}
             </div>
 
             <div className="flex gap-3 pt-4">

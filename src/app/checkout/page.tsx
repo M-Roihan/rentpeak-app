@@ -124,14 +124,14 @@ export default function CheckoutPage() {
 
   if (isPageLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-[#F9F8F6] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4 font-sans text-slate-800">
+    <div className="min-h-screen bg-[#F9F8F6] py-10 px-4 font-sans text-stone-800">
       {toastMsg && (
         <Toast 
           message={toastMsg} 
@@ -144,7 +144,7 @@ export default function CheckoutPage() {
         <div className="mb-8">
           <Link 
             href="/keranjang" 
-            className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 mb-6 transition-colors"
+            className="inline-flex items-center text-emerald-600 font-semibold hover:text-emerald-700 mb-6 transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
@@ -152,32 +152,32 @@ export default function CheckoutPage() {
             Kembali ke Keranjang
           </Link>
           <h1 className="text-3xl font-bold" style={{ fontFamily: '"Sora", sans-serif' }}>Checkout</h1>
-          <p className="text-slate-500 mt-1 font-light">Selesaikan pembayaran untuk mengonfirmasi pesananmu</p>
+          <p className="text-stone-500 mt-1 font-light">Selesaikan pembayaran untuk mengonfirmasi pesananmu</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Kiri: Ringkasan Pesanan */}
           <div className="space-y-6">
-            <h2 className="text-xl font-bold text-slate-800">Ringkasan Pesanan</h2>
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 lg:p-8 space-y-4">
+            <h2 className="text-xl font-bold text-stone-800">Ringkasan Pesanan</h2>
+            <div className="bg-white rounded-3xl border border-stone-200 shadow-sm p-6 lg:p-8 space-y-4">
               {cartItems.map((item, index) => (
-                <div key={index} className="flex flex-col sm:flex-row justify-between py-4 border-b border-slate-100 last:border-0 last:pb-0">
+                <div key={index} className="flex flex-col sm:flex-row justify-between py-4 border-b border-stone-100 last:border-0 last:pb-0">
                   <div className="flex-1 pr-4">
-                    <h3 className="font-bold text-slate-800 mb-1.5 text-lg">{item.nama} <span className="text-sm font-normal text-slate-500 ml-2">(x{item.jumlah || 1})</span></h3>
-                    <div className="text-sm text-slate-500 space-y-1">
-                      <p><span className="font-medium text-slate-400">Pinjam:</span> {formatTanggal(item.tglPinjam)}</p>
-                      <p><span className="font-medium text-slate-400">Kembali:</span> {formatTanggal(item.tglKembali)}</p>
+                    <h3 className="font-bold text-stone-800 mb-1.5 text-lg">{item.nama} <span className="text-sm font-normal text-stone-500 ml-2">(x{item.jumlah || 1})</span></h3>
+                    <div className="text-sm text-stone-500 space-y-1">
+                      <p><span className="font-medium text-stone-400">Pinjam:</span> {formatTanggal(item.tglPinjam)}</p>
+                      <p><span className="font-medium text-stone-400">Kembali:</span> {formatTanggal(item.tglKembali)}</p>
                     </div>
                   </div>
                   <div className="mt-4 sm:mt-0 sm:text-right flex flex-col justify-end">
-                    <span className="font-bold text-slate-800 text-lg">{formatRupiah(item.total)}</span>
+                    <span className="font-bold text-stone-800 text-lg">{formatRupiah(item.total)}</span>
                   </div>
                 </div>
               ))}
               
-              <div className="pt-6 mt-2 border-t-2 border-slate-100 flex justify-between items-center">
-                <span className="text-slate-500 font-semibold">Total Keseluruhan</span>
-                <span className="font-bold text-2xl text-blue-600" style={{ fontFamily: '"Sora", sans-serif' }}>
+              <div className="pt-6 mt-2 border-t-2 border-stone-100 flex justify-between items-center">
+                <span className="text-stone-500 font-semibold">Total Keseluruhan</span>
+                <span className="font-bold text-2xl text-emerald-600" style={{ fontFamily: '"Sora", sans-serif' }}>
                   {formatRupiah(totalKeseluruhan)}
                 </span>
               </div>
@@ -186,7 +186,7 @@ export default function CheckoutPage() {
 
           {/* Kanan: Form Pembayaran */}
           <div className="space-y-6">
-            <h2 className="text-xl font-bold text-slate-800">Metode Pembayaran</h2>
+            <h2 className="text-xl font-bold text-stone-800">Metode Pembayaran</h2>
             
             {errorMsg && (
               <div className="p-4 rounded-lg bg-red-100 text-red-700 border border-red-200 text-sm font-medium">
@@ -194,13 +194,13 @@ export default function CheckoutPage() {
               </div>
             )}
 
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 lg:p-8 space-y-4">
+            <div className="bg-white rounded-3xl border border-stone-200 shadow-sm p-6 lg:p-8 space-y-4">
               {/* Radio Transfer */}
               <label 
                 className={`flex items-start p-5 rounded-xl cursor-pointer border-2 transition-all ${
                   metodePembayaran === "transfer" 
-                    ? "border-blue-600 bg-blue-50/50" 
-                    : "border-slate-100 hover:border-blue-300"
+                    ? "border-emerald-600 bg-emerald-50/50" 
+                    : "border-stone-100 hover:border-emerald-300"
                 }`}
               >
                 <div className="flex-shrink-0 mt-1">
@@ -210,12 +210,12 @@ export default function CheckoutPage() {
                     value="transfer"
                     checked={metodePembayaran === "transfer"}
                     onChange={() => setMetodePembayaran("transfer")}
-                    className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 cursor-pointer"
+                    className="h-5 w-5 text-emerald-600 focus:ring-emerald-500 border-gray-300 cursor-pointer"
                   />
                 </div>
                 <div className="ml-4 flex-1">
-                  <span className="block text-lg font-bold text-slate-800">Transfer Bank</span>
-                  <span className="block text-sm text-slate-500 mt-1">BCA / BNI / Mandiri (Simulasi)</span>
+                  <span className="block text-lg font-bold text-stone-800">Transfer Bank</span>
+                  <span className="block text-sm text-stone-500 mt-1">BCA / BNI / Mandiri (Simulasi)</span>
                 </div>
               </label>
 
@@ -223,8 +223,8 @@ export default function CheckoutPage() {
               <label 
                 className={`flex items-start p-5 rounded-xl cursor-pointer border-2 transition-all ${
                   metodePembayaran === "tunai" 
-                    ? "border-blue-600 bg-blue-50/50" 
-                    : "border-slate-100 hover:border-blue-300"
+                    ? "border-emerald-600 bg-emerald-50/50" 
+                    : "border-stone-100 hover:border-emerald-300"
                 }`}
               >
                 <div className="flex-shrink-0 mt-1">
@@ -234,12 +234,12 @@ export default function CheckoutPage() {
                     value="tunai"
                     checked={metodePembayaran === "tunai"}
                     onChange={() => setMetodePembayaran("tunai")}
-                    className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 cursor-pointer"
+                    className="h-5 w-5 text-emerald-600 focus:ring-emerald-500 border-gray-300 cursor-pointer"
                   />
                 </div>
                 <div className="ml-4 flex-1">
-                  <span className="block text-lg font-bold text-slate-800">Bayar di Tempat</span>
-                  <span className="block text-sm text-slate-500 mt-1">Bayar saat mengambil barang</span>
+                  <span className="block text-lg font-bold text-stone-800">Bayar di Tempat</span>
+                  <span className="block text-sm text-stone-500 mt-1">Bayar saat mengambil barang</span>
                 </div>
               </label>
             </div>
@@ -249,8 +249,8 @@ export default function CheckoutPage() {
               disabled={!metodePembayaran || isLoading}
               className={`w-full py-4 rounded-xl font-bold text-lg text-white transition-all flex items-center justify-center gap-3 ${
                 !metodePembayaran || isLoading
-                  ? 'bg-slate-300 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/30'
+                  ? 'bg-stone-300 cursor-not-allowed'
+                  : 'bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-600/30'
               }`}
             >
               {isLoading ? (

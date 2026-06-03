@@ -41,6 +41,7 @@ model Barang {
   stok_tersedia Int
   deskripsi     String?   @db.Text
   kondisi       String    @db.VarChar(50)
+  foto_url      String?   @db.VarChar(255)
   
   // Relasi
   booking_details BookingDetail[]

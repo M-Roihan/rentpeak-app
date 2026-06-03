@@ -64,20 +64,20 @@ export default function KeranjangPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-[#F9F8F6] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4 font-sans text-slate-800">
+    <div className="min-h-screen bg-[#F9F8F6] py-10 px-4 font-sans text-stone-800">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <Link 
             href="/" 
-            className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 mb-6 transition-colors"
+            className="inline-flex items-center text-emerald-600 font-semibold hover:text-emerald-700 mb-6 transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
@@ -85,21 +85,21 @@ export default function KeranjangPage() {
             Lanjut Belanja
           </Link>
           <h1 className="text-3xl font-bold" style={{ fontFamily: '"Sora", sans-serif' }}>Keranjang Sewa</h1>
-          <p className="text-slate-500 mt-1 font-light">Barang yang kamu pilih</p>
+          <p className="text-stone-500 mt-1 font-light">Barang yang kamu pilih</p>
         </div>
 
         {/* Content */}
         {cartItems.length === 0 ? (
           /* Empty State */
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-12 text-center flex flex-col items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 text-slate-300 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="bg-white rounded-3xl border border-stone-200 shadow-sm p-12 text-center flex flex-col items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 text-stone-300 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
-            <h3 className="text-xl font-bold text-slate-700 mb-2">Keranjang masih kosong</h3>
-            <p className="text-slate-500 mb-8 max-w-sm">Kamu belum memilih perlengkapan apapun. Yuk lihat katalog kami untuk mulai menyewa!</p>
+            <h3 className="text-xl font-bold text-stone-700 mb-2">Keranjang masih kosong</h3>
+            <p className="text-stone-500 mb-8 max-w-sm">Kamu belum memilih perlengkapan apapun. Yuk lihat katalog kami untuk mulai menyewa!</p>
             <Link 
               href="/" 
-              className="bg-blue-600 text-white font-bold px-8 py-3.5 rounded-xl hover:bg-blue-700 transition-colors inline-block"
+              className="bg-emerald-600 text-white font-bold px-8 py-3.5 rounded-xl hover:bg-emerald-700 transition-colors inline-block"
             >
               Lihat Katalog
             </Link>
@@ -109,14 +109,14 @@ export default function KeranjangPage() {
           <div className="space-y-6">
             <div className="space-y-4">
               {cartItems.map((item, index) => (
-                <div key={`${item.id}-${index}`} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex flex-col sm:flex-row gap-5 transition-all hover:border-blue-200">
+                <div key={`${item.id}-${index}`} className="bg-white rounded-3xl border border-stone-200 shadow-sm p-5 flex flex-col sm:flex-row gap-5 transition-all hover:border-emerald-200">
                   <div className="flex-1">
                     <div className="flex justify-between items-start mb-4">
                       <div>
-                        <span className="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-[10px] font-bold rounded-full mb-2 uppercase tracking-wider">
+                        <span className="inline-block px-3 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded-full mb-2 uppercase tracking-wider">
                           {item.kategori}
                         </span>
-                        <h3 className="font-bold text-xl text-slate-900">{item.nama}</h3>
+                        <h3 className="font-bold text-xl text-stone-900">{item.nama}</h3>
                       </div>
                       <button 
                         onClick={() => handleHapusItem(item.id)}
@@ -129,25 +129,25 @@ export default function KeranjangPage() {
                       </button>
                     </div>
                     
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-600 mb-5 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-stone-600 mb-5 bg-[#F9F8F6] p-4 rounded-xl border border-stone-200">
                       <div>
-                        <span className="block text-slate-400 text-xs mb-1 uppercase font-semibold">Tanggal Pinjam</span>
-                        <span className="font-medium text-slate-800">{formatTanggal(item.tglPinjam)}</span>
+                        <span className="block text-stone-400 text-xs mb-1 uppercase font-semibold">Tanggal Pinjam</span>
+                        <span className="font-medium text-stone-800">{formatTanggal(item.tglPinjam)}</span>
                       </div>
                       <div>
-                        <span className="block text-slate-400 text-xs mb-1 uppercase font-semibold">Tanggal Kembali</span>
-                        <span className="font-medium text-slate-800">{formatTanggal(item.tglKembali)}</span>
+                        <span className="block text-stone-400 text-xs mb-1 uppercase font-semibold">Tanggal Kembali</span>
+                        <span className="font-medium text-stone-800">{formatTanggal(item.tglKembali)}</span>
                       </div>
                     </div>
                     
-                    <div className="flex justify-between items-end border-t border-slate-100 pt-4">
-                      <div className="text-slate-500 text-sm">
+                    <div className="flex justify-between items-end border-t border-stone-100 pt-4">
+                      <div className="text-stone-500 text-sm">
                         {formatRupiah(item.harga_per_hari)} <span className="text-xs">/ hari</span>
-                        <div className="mt-1 text-slate-700 font-semibold">Jumlah: {item.jumlah || 1} unit</div>
+                        <div className="mt-1 text-stone-700 font-semibold">Jumlah: {item.jumlah || 1} unit</div>
                       </div>
                       <div className="text-right">
-                        <span className="block text-xs text-slate-400 uppercase font-semibold mb-1">Total Biaya Item</span>
-                        <span className="font-bold text-blue-600 text-xl">{formatRupiah(item.total)}</span>
+                        <span className="block text-xs text-stone-400 uppercase font-semibold mb-1">Total Biaya Item</span>
+                        <span className="font-bold text-emerald-600 text-xl">{formatRupiah(item.total)}</span>
                       </div>
                     </div>
                   </div>
@@ -156,18 +156,18 @@ export default function KeranjangPage() {
             </div>
 
             {/* Summary Box */}
-            <div className="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mt-8 shadow-2xl">
+            <div className="bg-stone-900 text-white rounded-3xl p-6 md:p-8 mt-8 shadow-xl">
               <h3 className="text-lg font-bold mb-4 opacity-90">Ringkasan Pesanan</h3>
-              <div className="flex justify-between items-center mb-8 pb-8 border-b border-slate-700/50">
-                <span className="text-slate-300 font-medium">Total Keseluruhan</span>
-                <span className="font-bold text-3xl text-blue-400" style={{ fontFamily: '"Sora", sans-serif' }}>
+              <div className="flex justify-between items-center mb-8 pb-8 border-b border-stone-700/50">
+                <span className="text-stone-300 font-medium">Total Keseluruhan</span>
+                <span className="font-bold text-3xl text-emerald-400" style={{ fontFamily: '"Sora", sans-serif' }}>
                   {formatRupiah(totalSemuaItem)}
                 </span>
               </div>
               
               <button 
                 onClick={() => router.push("/checkout")}
-                className="bg-blue-600 text-white rounded-xl py-4 w-full font-bold text-lg hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-600/30 transition-all flex items-center justify-center gap-2"
+                className="bg-emerald-600 text-white rounded-xl py-4 w-full font-bold text-lg hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-600/30 transition-all flex items-center justify-center gap-2"
               >
                 Lanjut ke Checkout
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

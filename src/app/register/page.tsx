@@ -101,15 +101,15 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-900 py-10 px-4">
-      <div className="w-full max-w-xl bg-white p-8 rounded-2xl shadow-2xl">
+    <div className="flex min-h-screen items-center justify-center bg-[#F9F8F6] py-10 px-4">
+      <div className="w-full max-w-xl bg-white p-8 rounded-3xl shadow-xl border border-stone-200">
         <h2 
-          className="text-3xl font-bold text-center text-blue-600 mb-2" 
+          className="text-3xl font-black text-center text-stone-900 tracking-tighter mb-2" 
           style={{ fontFamily: '"Sora", sans-serif' }}
         >
-          Buat Akun RentPeak
+          Buat Akun Rent<span className="text-emerald-600">Peak.</span>
         </h2>
-        <p className="text-center text-gray-500 mb-8 font-light">
+        <p className="text-center text-stone-500 mb-8 font-light">
           Mulai petualangan outdoor Anda bersama kami
         </p>
         
@@ -129,11 +129,11 @@ export default function RegisterPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Nama Lengkap */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700">Nama Lengkap</label>
+              <label className="block text-sm font-semibold text-stone-700">Nama Lengkap</label>
               <input 
                 type="text" 
                 name="nama"
-                className={`mt-1 w-full p-3 border rounded-lg focus:ring-2 outline-none transition-all ${errors.nama ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+                className={`mt-1 w-full p-3 border rounded-xl focus:ring-2 outline-none transition-all ${errors.nama ? 'border-red-500 focus:ring-red-500' : 'border-stone-300 focus:ring-emerald-500/20 focus:border-emerald-500'}`}
                 placeholder="John Doe"
                 value={formData.nama}
                 onChange={handleChange}
@@ -143,11 +143,11 @@ export default function RegisterPage() {
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700">Email</label>
+              <label className="block text-sm font-semibold text-stone-700">Email</label>
               <input 
                 type="email" 
                 name="email"
-                className={`mt-1 w-full p-3 border rounded-lg focus:ring-2 outline-none transition-all ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+                className={`mt-1 w-full p-3 border rounded-xl focus:ring-2 outline-none transition-all ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-stone-300 focus:ring-emerald-500/20 focus:border-emerald-500'}`}
                 placeholder="john@example.com"
                 value={formData.email}
                 onChange={handleChange}
@@ -159,11 +159,11 @@ export default function RegisterPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Password */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700">Password</label>
+              <label className="block text-sm font-semibold text-stone-700">Password</label>
               <input 
                 type="password" 
                 name="password"
-                className={`mt-1 w-full p-3 border rounded-lg focus:ring-2 outline-none transition-all ${errors.password ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+                className={`mt-1 w-full p-3 border rounded-xl focus:ring-2 outline-none transition-all ${errors.password ? 'border-red-500 focus:ring-red-500' : 'border-stone-300 focus:ring-emerald-500/20 focus:border-emerald-500'}`}
                 placeholder="Min. 8 karakter"
                 value={formData.password}
                 onChange={handleChange}
@@ -173,11 +173,11 @@ export default function RegisterPage() {
 
             {/* Konfirmasi Password */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700">Konfirmasi Password</label>
+              <label className="block text-sm font-semibold text-stone-700">Konfirmasi Password</label>
               <input 
                 type="password" 
                 name="confirmPassword"
-                className={`mt-1 w-full p-3 border rounded-lg focus:ring-2 outline-none transition-all ${errors.confirmPassword ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+                className={`mt-1 w-full p-3 border rounded-xl focus:ring-2 outline-none transition-all ${errors.confirmPassword ? 'border-red-500 focus:ring-red-500' : 'border-stone-300 focus:ring-emerald-500/20 focus:border-emerald-500'}`}
                 placeholder="Ulangi password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
@@ -189,15 +189,15 @@ export default function RegisterPage() {
           <button 
             type="submit"
             disabled={loading}
-            className={`mt-6 w-full p-3 rounded-lg font-bold text-white transition-all ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200'}`}
+            className={`mt-6 w-full p-3.5 rounded-xl font-bold text-white transition-all ${loading ? 'bg-stone-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700 shadow-md shadow-emerald-200'}`}
           >
             {loading ? "Memproses..." : "DAFTAR SEKARANG"}
           </button>
         </form>
 
-        <p className="mt-8 text-center text-sm text-gray-600">
+        <p className="mt-8 text-center text-sm text-stone-600">
           Sudah punya akun?{" "}
-          <Link href="/login" className="text-blue-600 font-semibold hover:underline">
+          <Link href="/login" className="text-emerald-600 font-bold hover:underline">
             Masuk
           </Link>
         </p>

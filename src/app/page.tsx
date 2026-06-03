@@ -14,6 +14,7 @@ export default function Home() {
   // State Filter & Search
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
+  const [categories, setCategories] = useState<string[]>(["Semua"]);
   const [userName, setUserName] = useState("Pengguna");
   const [cartCount, setCartCount] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -37,8 +38,6 @@ export default function Home() {
   const { isAuthenticated, isLoading: authLoading, user } = useAuth();
   const router = useRouter();
 
-  const categories = ["Semua", "Tenda", "Carrier", "Alat Masak", "Pakaian", "Senter"];
-
   // Ambil nama pengguna dari localStorage jika ada
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -54,13 +53,18 @@ export default function Home() {
         const res = await fetch("/api/barang");
         const json = await res.json();
         // Cek fallback struktur data dari API response
+        let data = [];
         if (json.data) {
-          setBarang(json.data);
+          data = json.data;
         } else if (Array.isArray(json)) {
-          setBarang(json);
-        } else {
-          setBarang([]);
+          data = json;
         }
+        
+        setBarang(data);
+        
+        // Buat list kategori unik dari data barang
+        const uniqueCategories = Array.from(new Set(data.map((item: any) => item.kategori))).filter(Boolean) as string[];
+        setCategories(["Semua", ...uniqueCategories]);
       } catch (error) {
         console.error("Gagal mengambil data barang");
         setBarang([]);
@@ -102,11 +106,11 @@ export default function Home() {
   // Ikon disesuaikan dengan tema alam
   const getSvgIcon = (kategori: string) => {
     const k = kategori?.toLowerCase();
-    if (k?.includes("tenda")) return <svg className="w-16 h-16 text-emerald-600 drop-shadow-sm transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 21h18M5 21l7-14 7 14M12 7v14M8 15h8" /></svg>;
+    if (k?.includes("tenda") || k?.includes("camping")) return <svg className="w-16 h-16 text-emerald-600 drop-shadow-sm transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 21h18M5 21l7-14 7 14M12 7v14M8 15h8" /></svg>;
     if (k?.includes("carrier") || k?.includes("tas")) return <svg className="w-16 h-16 text-amber-600 drop-shadow-sm transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>;
     if (k?.includes("masak")) return <svg className="w-16 h-16 text-orange-500 drop-shadow-sm transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20.5 3l-.5 4h-16l-.5-4h17zM3 7v11a2 2 0 002 2h14a2 2 0 002-2V7H3z" /></svg>;
     if (k?.includes("pakaian")) return <svg className="w-16 h-16 text-teal-600 drop-shadow-sm transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>;
-    if (k?.includes("senter")) return <svg className="w-16 h-16 text-yellow-500 drop-shadow-sm transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>;
+    if (k?.includes("senter") || k?.includes("penerangan") || k?.includes("lampu")) return <svg className="w-16 h-16 text-yellow-500 drop-shadow-sm transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>;
     return <svg className="w-16 h-16 text-stone-400 drop-shadow-sm transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>;
   };
 
@@ -226,10 +230,15 @@ export default function Home() {
       </nav>
 
       {/* HERO SECTION */}
-      <header className="relative overflow-hidden bg-[#0A1F18] text-white text-center py-32 px-6">
-        {/* Dynamic Background Effects - Earthy Tones */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-emerald-600/20 blur-[120px] rounded-full pointer-events-none"></div>
-        <div className="absolute bottom-0 right-0 w-[500px] h-[300px] bg-teal-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+      <header 
+        className="relative overflow-hidden bg-[#0A1F18] text-white text-center py-32 md:py-48 px-6 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/bg-2.jpg')" }}
+      >
+        {/* Dark Overlay untuk membuat teks lebih terbaca */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        
+        {/* Dynamic Background Effects - Earthy Tones (Bisa dipertahankan atau dihapus) */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-emerald-600/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen"></div>
         
         <div className="relative z-10 max-w-4xl mx-auto">
           <span className="text-emerald-400 font-semibold tracking-widest text-sm uppercase mb-4 block">Siapkan Perjalananmu</span>
@@ -311,9 +320,13 @@ export default function Home() {
             {filteredBarang.map((item: any) => (
               <div key={item.id} className="group bg-white rounded-3xl shadow-sm border border-stone-200/60 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-500 flex flex-col transform hover:-translate-y-1">
                 
-                {/* Kotak Gambar (SVG Ilustrasi) */}
+                {/* Kotak Gambar */}
                 <div className="h-56 w-full flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#F9F8F6] to-stone-100 group-hover:from-emerald-50/50 group-hover:to-teal-50/30 transition-colors duration-500">
-                  {getSvgIcon(item.kategori)}
+                  {item.foto_url ? (
+                    <img src={item.foto_url} alt={item.nama} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  ) : (
+                    getSvgIcon(item.kategori)
+                  )}
                   
                   {/* Glassmorphism Badge */}
                   <div className="absolute top-4 right-4">

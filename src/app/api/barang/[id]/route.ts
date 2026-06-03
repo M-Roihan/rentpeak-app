@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyToken, requireRole } from "@/lib/auth";
+import { writeFile, mkdir } from "fs/promises";
+import path from "path";
 
 export async function GET(
   request: Request,
@@ -32,19 +34,43 @@ export async function PUT(
     requireRole(decoded, ["ADMIN"]);
 
     const { id } = await params;
-    const body = await request.json();
+    const formData = await request.formData();
+    
+    const nama = formData.get("nama") as string;
+    const kategori = formData.get("kategori") as string;
+    const harga_per_hari = formData.get("harga_per_hari") as string;
+    const stok_total = formData.get("stok_total") as string;
+    const stok_tersedia = formData.get("stok_tersedia") as string | null;
+    const kondisi = formData.get("kondisi") as string;
+    const deskripsi = formData.get("deskripsi") as string;
+    const foto = formData.get("foto") as File | null;
+
+    let foto_url = undefined;
+    if (foto && foto.size > 0) {
+      const bytes = await foto.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const fileName = Date.now() + "-" + foto.name.replace(/[^a-zA-Z0-9.\-_]/g, "");
+      const uploadDir = path.join(process.cwd(), "public", "uploads");
+      try {
+        await mkdir(uploadDir, { recursive: true });
+      } catch (e) {}
+      const filePath = path.join(uploadDir, fileName);
+      await writeFile(filePath, buffer);
+      foto_url = `/uploads/${fileName}`;
+    }
 
     const barang = await prisma.barang.update({
       where: { id },
       data: {
-        nama: body.nama,
-        kategori: body.kategori,
-        harga_per_hari: body.harga_per_hari,
-        stok_total: parseInt(body.stok_total),
+        nama: nama,
+        kategori: kategori,
+        harga_per_hari: Number(harga_per_hari),
+        stok_total: parseInt(stok_total),
         // Konversi opsional jika edit dikosongi
-        stok_tersedia: body.stok_tersedia !== undefined ? parseInt(body.stok_tersedia) : parseInt(body.stok_total),
-        kondisi: body.kondisi,
-        deskripsi: body.deskripsi
+        stok_tersedia: stok_tersedia ? parseInt(stok_tersedia) : parseInt(stok_total),
+        kondisi: kondisi,
+        deskripsi: deskripsi,
+        ...(foto_url && { foto_url })
       }
     });
 
