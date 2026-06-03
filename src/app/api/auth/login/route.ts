@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ 
       pesan: "Login berhasil!", 
       token,
-      user: { nama: user.nama, peran: user.peran } 
+      user: { id: user.id, nama: user.nama, peran: user.peran, NIK: user.NIK, no_telp: user.no_telp } 
     });
   } catch (error) {
     console.error(error);

@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Buat pindah halaman
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState<string | React.ReactNode>("");
+  const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const router = useRouter();
 
@@ -27,20 +27,13 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        if (data.user.peran === "ADMIN" || data.user.peran === "PEGAWAI") {
-          setErrorMsg(
-            <span>
-              Akun staff harus login melalui halaman staff.{" "}
-              <Link href="/admin/login" className="underline font-bold hover:text-red-800">
-                Klik di sini.
-              </Link>
-            </span>
-          );
+        if (data.user.peran === "CUSTOMER") {
+          setErrorMsg("Akun ini bukan akun staff. Silakan login di halaman utama.");
           setLoading(false);
           return;
         }
 
-        // Simpan token di storage browser agar bisa dipakai di halaman lain
+        // Simpan token di storage browser
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.user.peran);
         localStorage.setItem("userId", data.user.id);
@@ -50,7 +43,11 @@ export default function LoginPage() {
         setSuccessMsg("Login Berhasil! Selamat datang " + data.user.nama);
         
         setTimeout(() => {
-          router.push("/"); // Ke landing page kalau customer
+          if (data.user.peran === "ADMIN") {
+            router.push("/admin");
+          } else if (data.user.peran === "PEGAWAI") {
+            router.push("/pegawai");
+          }
         }, 1500);
       } else {
         setErrorMsg(data.pesan || "Login gagal, silakan periksa kembali.");
@@ -66,7 +63,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-slate-900 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-2xl">
         <h2 className="text-3xl font-bold text-center text-blue-600 mb-2" style={{ fontFamily: '"Sora", sans-serif' }}>RENTPEAK</h2>
-        <p className="text-center text-gray-500 mb-8 font-light">Portal Masuk</p>
+        <p className="text-center text-gray-500 mb-8 font-light">Portal Staff</p>
         
         {successMsg && (
           <div className="mb-6 p-4 rounded-lg bg-green-100 text-green-700 border border-green-200 text-sm font-medium text-center">
@@ -82,7 +79,7 @@ export default function LoginPage() {
         
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Email</label>
+            <label className="block text-sm font-semibold text-gray-700">Email Staff</label>
             <input 
               type="email" 
               required
@@ -108,21 +105,13 @@ export default function LoginPage() {
             disabled={loading}
             className={`w-full p-3 rounded-lg font-bold text-white transition-all ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200'}`}
           >
-            {loading ? "Logging in..." : "MASUK"}
+            {loading ? "Memproses..." : "MASUK SEBAGAI STAFF"}
           </button>
         </form>
 
         <p className="mt-8 text-center text-sm text-gray-600">
-          Belum punya akun?{" "}
-          <Link href="/register" className="text-blue-600 font-semibold hover:underline">
-            Daftar
-          </Link>
-        </p>
-
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Login sebagai staff?{" "}
-          <Link href="/admin/login" className="text-blue-600 font-semibold hover:underline">
-            Klik di sini &rarr;
+          <Link href="/" className="text-blue-600 font-semibold hover:underline">
+            &larr; Kembali ke halaman utama
           </Link>
         </p>
       </div>
