@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { formatRupiah, formatTanggal } from "@/lib/utils";
+import { Toast } from "@/components/ui";
 
 type CartItem = {
   id: string;
@@ -22,6 +23,7 @@ export default function CheckoutPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [isPageLoading, setIsPageLoading] = useState(true);
+  const [toastMsg, setToastMsg] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -105,7 +107,11 @@ export default function CheckoutPage() {
         
         // Coba baca format response, fallback jika nama property berbeda
         const idToRedirect = data.data?.id || data.id || data.booking?.id || "";
-        router.push(`/pembayaran-berhasil?id=${idToRedirect}`);
+        
+        setToastMsg("Checkout berhasil! Anda akan dialihkan...");
+        setTimeout(() => {
+          router.push(`/pembayaran-berhasil?id=${idToRedirect}`);
+        }, 2000);
       } else {
         setErrorMsg(data.pesan || "Terjadi kesalahan saat memproses pesanan.");
         setIsLoading(false);
@@ -126,6 +132,13 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4 font-sans text-slate-800">
+      {toastMsg && (
+        <Toast 
+          message={toastMsg} 
+          type="success" 
+          onDismiss={() => setToastMsg("")} 
+        />
+      )}
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
