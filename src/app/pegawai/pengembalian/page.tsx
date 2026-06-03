@@ -197,7 +197,7 @@ export default function PengembalianPage() {
                           {isTerlambat ? (
                             <Badge variant="danger">TERLAMBAT</Badge>
                           ) : (
-                            <Badge variant="primary">AKTIF</Badge>
+                            <Badge variant="info">AKTIF</Badge>
                           )}
                           <p className="text-xs text-slate-400 mt-2 font-mono" title={booking.id}>ID: {booking.id.split("-")[0].toUpperCase()}</p>
                         </div>

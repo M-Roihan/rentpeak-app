@@ -20,9 +20,15 @@ export async function POST(req: Request) {
       let total = 0;
       const calculatedItems = [];
 
-      // a. Validasi stok semua item DULU (sebelum ada yang diubah)
+      // a. Fetch semua barang sekaligus untuk menghemat query
+      const barangIds = items.map((i: any) => i.barang_id);
+      const daftarBarang = await tx.barang.findMany({
+        where: { id: { in: barangIds } }
+      });
+
+      // Validasi stok semua item DULU (sebelum ada yang diubah)
       for (const item of items) {
-        const barang = await tx.barang.findUnique({ where: { id: item.barang_id } });
+        const barang = daftarBarang.find((b: any) => b.id === item.barang_id);
         
         if (!barang || barang.stok_tersedia < item.jumlah) {
           throw new Error(`Stok ${barang?.nama || 'Barang'} tidak mencukupi!`);
